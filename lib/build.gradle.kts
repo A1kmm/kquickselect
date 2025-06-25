@@ -1,6 +1,9 @@
+import com.vanniktech.maven.publish.SonatypeHost
+
 plugins {
     kotlin("jvm") version "2.2.0"
     `java-library`
+    id("com.vanniktech.maven.publish") version "0.33.0"
 }
 
 repositories {
@@ -25,4 +28,36 @@ java {
 
 tasks.named<Test>("test") {
     useJUnitPlatform()
+}
+
+mavenPublishing {
+  coordinates("com.amxl", "kquickselect", "1.0.0")
+  publishToMavenCentral()
+
+  signAllPublications()
+  pom {
+    name.set("kquickselect")
+    description.set("Provides quickselect for Kotlin.")
+    inceptionYear.set("2025")
+    url.set("https://github.com/A1kmm/kquickselect/")
+    licenses {
+      license {
+        name.set("The Apache License, Version 2.0")
+        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+        distribution.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+      }
+    }
+    developers {
+      developer {
+        id.set("A1kmm")
+        name.set("Andrew Miller")
+        url.set("https://github.com/A1kmm/")
+      }
+    }
+    scm {
+      url.set("https://github.com/A1kmm/kquickselect/")
+      connection.set("scm:git:git://github.com/A1kmm/kquickselect.git")
+      developerConnection.set("scm:git:ssh://git@github.com/A1kmm/kquickselect.git")
+    }
+  }
 }
